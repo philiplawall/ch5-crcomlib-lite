@@ -1,9 +1,6 @@
 {
   //"defaultSeverity": "error",
-  "extends": [
-    "tslint:recommended",
-    "tslint-config-prettier"
-  ],
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
   "project": "./tsconfig.cjs.json",
   "exclude": [
     //"**/src/**/*.ts",
@@ -21,7 +18,7 @@
       "options": [
         "ban-keywords",
         "check-format",
-//        "allow-pascal-case",
+        //        "allow-pascal-case",
         "allow-leading-underscore"
       ]
     },
