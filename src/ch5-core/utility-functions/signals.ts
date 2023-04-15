@@ -11,6 +11,6 @@ import { Ch5SignalFactory } from "../ch5-signal-factory";
  * Utility function that returns the number of active subscriptions of CH5 Components
  */
 export function getSubscriptionsCount() {
-    const signals = Ch5SignalFactory.getInstance().getStates();
-    return signals;
+  const signals = Ch5SignalFactory.getInstance().getStates();
+  return signals;
 }

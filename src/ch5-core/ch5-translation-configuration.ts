@@ -5,9 +5,7 @@
 // Use of this source code is subject to the terms of the Crestron Software License Agreement
 // under which you licensed this source code.
 
-export class Ch5TranslationConfiguration { 
-
-    public static translationTokenStartDelimiter: string = '-+';
-    public static translationTokenEndDelimiter: string = '+-';
-
+export class Ch5TranslationConfiguration {
+  public static translationTokenStartDelimiter: string = "-+";
+  public static translationTokenEndDelimiter: string = "+-";
 }

@@ -9,26 +9,27 @@ import { TSignal } from "./signal.type";
 import { IResynchronizationRequestModel } from "../../ch5-resync/models/resynchronization-request-model";
 
 export type TVideoLocationResponse = {
-    height: number;
-    left: number;
-    top: number;
-    width: number;
-}
+  height: number;
+  left: number;
+  top: number;
+  width: number;
+};
 
 export type TVideoResponse = {
-    currenttime: number;
-    id: number;
-    status: string;
-    statusCode: number;
-    location: TVideoLocationResponse;
-}
+  currenttime: number;
+  id: number;
+  status: string;
+  statusCode: number;
+  location: TVideoLocationResponse;
+};
 
 export type Ch5SignalUpdateCallback<T extends TSignal> = (value: T) => void;
 export type Ch5SignalErrorCallback = (err: any) => void;
 
-export type TAllSignalSubscriptionUpdateCallbacks = Ch5SignalUpdateCallback<boolean>
-                | Ch5SignalUpdateCallback<number>
-                | Ch5SignalUpdateCallback<string>
-                | Ch5SignalUpdateCallback<object>
-                | Ch5SignalUpdateCallback<TVideoResponse>
-                | Ch5SignalUpdateCallback<IResynchronizationRequestModel>;
+export type TAllSignalSubscriptionUpdateCallbacks =
+  | Ch5SignalUpdateCallback<boolean>
+  | Ch5SignalUpdateCallback<number>
+  | Ch5SignalUpdateCallback<string>
+  | Ch5SignalUpdateCallback<object>
+  | Ch5SignalUpdateCallback<TVideoResponse>
+  | Ch5SignalUpdateCallback<IResynchronizationRequestModel>;

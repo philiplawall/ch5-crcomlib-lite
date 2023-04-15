@@ -9,5 +9,5 @@
  * Returns whether the browser is running on a Crestron device, such as TSW
  */
 export function isCrestronDevice(): boolean {
-    return window.navigator.userAgent.toLowerCase().includes("crestron");
+  return window.navigator.userAgent.toLowerCase().includes("crestron");
 }

@@ -9,7 +9,6 @@ import { triggerTranslation } from "./utility-functions/trigger-translation";
 import { i18n, TOptions } from "i18next";
 
 export class Ch5TranslationListeners {
-
   public translator: i18n = {} as i18n;
 
   constructor(translator: i18n) {
@@ -18,10 +17,10 @@ export class Ch5TranslationListeners {
   }
 
   protected init() {
-    this.translator.on('initialized', this.onInitialized.bind(this));
-    this.translator.on('loaded', this.onLoaded.bind(this));
-    this.translator.on('added', this.onAdded.bind(this));
-    this.translator.on('languageChanged', this.onLanguageChanged.bind(this));
+    this.translator.on("initialized", this.onInitialized.bind(this));
+    this.translator.on("loaded", this.onLoaded.bind(this));
+    this.translator.on("added", this.onAdded.bind(this));
+    this.translator.on("languageChanged", this.onLanguageChanged.bind(this));
   }
 
   /**
@@ -78,5 +77,4 @@ export class Ch5TranslationListeners {
   protected translate(language?: string): void {
     triggerTranslation(language);
   }
-
 }

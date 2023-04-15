@@ -5,23 +5,21 @@
 // Use of this source code is subject to the terms of the Crestron Software License Agreement
 // under which you licensed this source code.
 
-import translateEngine, { i18n } from 'i18next';
-import { Ch5Signal } from "./ch5-signal";
+import translateEngine, { i18n } from "i18next";
 import { Ch5TranslationListeners } from "./ch5-translation-listeners";
 
 export class Ch5TranslationFactory {
-
   /**
    * Saves the signal subscription
-   * 
+   *
    * @memberof Ch5TranslationFactory
    * @type {string}
    */
-  public receiveUpdateSub: string = '';
+  public receiveUpdateSub: string = "";
 
   /**
    * Contains the translator helper. This will be usually a i18next interface
-   * 
+   *
    * @memberof Ch5TranslationFactory
    * @protected
    */
@@ -29,21 +27,19 @@ export class Ch5TranslationFactory {
 
   /**
    * Getter for translator helper
-   * 
+   *
    * @return {ITranslator}
    */
   public get translator(): i18n {
-
     return this._translator;
   }
 
   /**
    * Setter for translator helper
-   * 
+   *
    * @param {ITranslator} translator
    */
   public set translator(translator: i18n) {
-
     if (Object.keys(translator).length > 0) {
       this._translator = translator;
       this.runListeners();
@@ -57,7 +53,7 @@ export class Ch5TranslationFactory {
   }
 }
 
-export const translationFactory = new Ch5TranslationFactory;
+export const translationFactory = new Ch5TranslationFactory();
 translationFactory.translator = translateEngine;
 
-export const languageChangedSignalName = 'language_changed';
+export const languageChangedSignalName = "language_changed";

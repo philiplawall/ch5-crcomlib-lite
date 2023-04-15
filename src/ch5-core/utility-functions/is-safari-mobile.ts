@@ -9,12 +9,14 @@
  * Returns whether the browser is Safari mobile
  */
 export function isSafariMobile(): boolean {
-    const ua = window.navigator.userAgent.toLowerCase();
+  const ua = window.navigator.userAgent.toLowerCase();
 
-    // since the launch of iPadOS, iPadOS Safari shows desktop versions of websites by default
-    const isiPadOS = ua.indexOf('ipad') > -1 || ua.indexOf('macintosh') > -1 && 'ontouchend' in document;
+  // since the launch of iPadOS, iPadOS Safari shows desktop versions of websites by default
+  const isiPadOS =
+    ua.indexOf("ipad") > -1 ||
+    (ua.indexOf("macintosh") > -1 && "ontouchend" in document);
 
-    const iOS = isiPadOS || !!ua.match(/iPhone/i);
-    const webkit = !!ua.match(/WebKit/i);
-    return !!(iOS && webkit && !ua.match(/CriOS/i));
+  const iOS = isiPadOS || !!ua.match(/iPhone/i);
+  const webkit = !!ua.match(/WebKit/i);
+  return !!(iOS && webkit && !ua.match(/CriOS/i));
 }

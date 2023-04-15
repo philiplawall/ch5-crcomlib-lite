@@ -6,10 +6,10 @@
 // under which you licensed this source code.
 
 export enum ResetEventNames {
-    startOfUpdateRange = 'StartOfUpdateRange',
-    startOfUpdateRangeSO = 'StartOfUpdateRangeSO',
-    clearAll = 'ClearAll',
-    clearRange = 'ClearRange',
-    endOfUpdate = 'EndOfUpdate',
-    startOfUpdate = 'StartOfUpdate',
+  startOfUpdateRange = "StartOfUpdateRange",
+  startOfUpdateRangeSO = "StartOfUpdateRangeSO",
+  clearAll = "ClearAll",
+  clearRange = "ClearRange",
+  endOfUpdate = "EndOfUpdate",
+  startOfUpdate = "StartOfUpdate",
 }

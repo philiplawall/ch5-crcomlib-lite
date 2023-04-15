@@ -16,10 +16,11 @@ export interface IDebouncerDetails {
  * @param {Function} callback Any function, code specific
  * @param {number} debounceTime Time in milliseconds
  */
-export const debounce = (debouncer: IDebouncerDetails, 
-                        callback: () => void,
-                        debounceTime: number = 0) => { 
-
+export const debounce = (
+  debouncer: IDebouncerDetails,
+  callback: () => void,
+  debounceTime: number = 0
+) => {
   const now: number = Date.now();
   if (!debouncer.start) {
     debouncer.start = now;
@@ -32,4 +33,4 @@ export const debounce = (debouncer: IDebouncerDetails,
     // update debouncer start in case a new callback exec is scheduled
     debouncer.start = debounceTimePassed ? now : debouncer.start;
   }
-}  
+};

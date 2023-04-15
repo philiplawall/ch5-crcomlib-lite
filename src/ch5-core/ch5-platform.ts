@@ -5,7 +5,6 @@
 // Use of this source code is subject to the terms of the Crestron Software License Agreement
 // under which you licensed this source code.
 
-import { isNil } from "lodash";
 import { Ch5Signal } from "./ch5-signal";
 import { Ch5SignalFactory } from "./ch5-signal-factory";
 import { ICh5PlatformInfo } from "./types/ch5-platform-info";
@@ -14,10 +13,11 @@ import { ICh5PlatformInfo } from "./types/ch5-platform-info";
  * The method signature is used for registering callback function with the Ch5Platform.registerUpdateCallback() method.
  * Ch5Platform will call it after it receives the signal with the platform information.
  */
-export type ICh5PlatformUpdateCallback = (platformInfo: ICh5PlatformInfo) => void;
+export type ICh5PlatformUpdateCallback = (
+  platformInfo: ICh5PlatformInfo
+) => void;
 
 export class Ch5Platform {
-
   private static readonly CSIG_PLATFORM_INFO: string = "Csig.Platform_Info";
 
   private static _instance: Ch5Platform;
@@ -38,17 +38,20 @@ export class Ch5Platform {
   private _updateCallbacks: ICh5PlatformUpdateCallback[];
 
   private constructor(ch5SignalFactory: Ch5SignalFactory) {
-    this._ch5PlatformInfoSignal = ch5SignalFactory.getObjectSignal(Ch5Platform.CSIG_PLATFORM_INFO, true);
+    this._ch5PlatformInfoSignal = ch5SignalFactory.getObjectSignal(
+      Ch5Platform.CSIG_PLATFORM_INFO,
+      true
+    );
     this._ch5PlatformInfo = {
       capabilities: {
         supportsTouchActivity: true,
         supportCredentialIntercept: {
-          http: '',
-          https: '',
-        }
+          http: "",
+          https: "",
+        },
       },
-      version: '',
-      name: '',
+      version: "",
+      name: "",
     } as ICh5PlatformInfo;
     this._updateCallbacks = new Array<ICh5PlatformUpdateCallback>();
   }
@@ -61,8 +64,8 @@ export class Ch5Platform {
    * @return {Ch5Platform}
    */
   public static getInstance(ch5SignalFactory?: Ch5SignalFactory): Ch5Platform {
-    if (isNil(this._instance)) {
-      if (isNil(ch5SignalFactory)) {
+    if (this._instance == null) {
+      if (ch5SignalFactory == null) {
         ch5SignalFactory = Ch5SignalFactory.getInstance();
       }
 
@@ -75,23 +78,21 @@ export class Ch5Platform {
    * Initializes the Ch5Platform instance for receiving the platform info.
    */
   public init(): void {
-    if (isNil(this._ch5PlatformInfoSignal)) {
+    if (this._ch5PlatformInfoSignal == null) {
       return;
     }
 
     this._ch5PlatformInfoSignal.subscribe((platformInfo: object) => {
-
-      if (isNil(platformInfo) || Object.keys(platformInfo).length === 0) {
+      if (platformInfo == null || Object.keys(platformInfo).length === 0) {
         return;
       }
 
-      if (!Object.isFrozen(this._ch5PlatformInfo))
-      {
+      if (!Object.isFrozen(this._ch5PlatformInfo)) {
         const ch5PlatformInfo = platformInfo as ICh5PlatformInfo;
         this._ch5PlatformInfo = Object.freeze(ch5PlatformInfo);
       }
 
-      this._updateCallbacks.forEach(callback => {
+      this._updateCallbacks.forEach((callback) => {
         callback(this._ch5PlatformInfo);
       });
     });
