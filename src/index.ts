@@ -5,6 +5,6 @@
 // Use of this source code is subject to the terms of the Crestron Software License Agreement
 // under which you licensed this source code.
 
-export * from "./ch5-core/index";
-export * from "./ch5-resync/ch5-resync";
-export * from "./utility-models/index"; // Use CrComLib.Ch5RoleAttributeMapping to access
+export * from './ch5-core/index'
+export * from './ch5-resync/ch5-resync'
+export * from './utility-models/index' // Use CrComLib.Ch5RoleAttributeMapping to access

@@ -5,14 +5,14 @@
 // Use of this source code is subject to the terms of the Crestron Software License Agreement
 // under which you licensed this source code.
 
-import { TSignalNonStandardTypeName } from "../core";
-import { Ch5SignalFactory } from "../ch5-signal-factory";
-import { Ch5Signal } from "../ch5-signal";
+import { TSignalNonStandardTypeName } from '../core'
+import { Ch5SignalFactory } from '../ch5-signal-factory'
+import { Ch5Signal } from '../ch5-signal'
 import {
   Ch5SignalErrorCallback,
   Ch5SignalUpdateCallback,
-  TAllSignalSubscriptionUpdateCallbacks,
-} from "../types/callbacks";
+  TAllSignalSubscriptionUpdateCallbacks
+} from '../types/callbacks'
 
 /**
  * Utility function that subscribes to a signal
@@ -28,60 +28,58 @@ export function subscribeState(
   /** The tslint comments provide a double purpose: to disable the linting error and to signal that the fallthrough was
    * intentional
    */
-  const csf = Ch5SignalFactory.getInstance();
-  let subId: string = "";
+  const csf = Ch5SignalFactory.getInstance()
+  let subId: string = ''
 
   // check for join number signal name and append prefix if needed (ex: 200 => fb200, test22 => test22)
-  signalName = Ch5Signal.getSubscriptionSignalName(signalName);
+  signalName = Ch5Signal.getSubscriptionSignalName(signalName)
 
   switch (signalType.toLowerCase()) {
-    case "b": // tslint:disable-line:no-switch-case-fall-through
-    case "boolean":
-      const bSig = csf.getBooleanSignal(signalName);
+    case 'b': // tslint:disable-line:no-switch-case-fall-through
+    case 'boolean':
+      const bSig = csf.getBooleanSignal(signalName)
       if (bSig != null) {
         subId = bSig.subscribe(
           callback as Ch5SignalUpdateCallback<boolean>,
           errCallback as Ch5SignalUpdateCallback<boolean>
-        );
+        )
       }
-      break;
-    case "n": // tslint:disable-line:no-switch-case-fall-through
-    case "number": // tslint:disable-line:no-switch-case-fall-through
-    case "numeric":
-      const nSig = csf.getNumberSignal(signalName);
+      break
+    case 'n': // tslint:disable-line:no-switch-case-fall-through
+    case 'number': // tslint:disable-line:no-switch-case-fall-through
+    case 'numeric':
+      const nSig = csf.getNumberSignal(signalName)
       if (nSig != null) {
         subId = nSig.subscribe(
           callback as Ch5SignalUpdateCallback<number>,
           errCallback as Ch5SignalUpdateCallback<number>
-        );
+        )
       }
-      break;
-    case "s": // tslint:disable-line:no-switch-case-fall-through
-    case "string":
-      const sSig = csf.getStringSignal(signalName);
+      break
+    case 's': // tslint:disable-line:no-switch-case-fall-through
+    case 'string':
+      const sSig = csf.getStringSignal(signalName)
       if (sSig != null) {
         subId = sSig.subscribe(
           callback as Ch5SignalUpdateCallback<string>,
           errCallback as Ch5SignalUpdateCallback<string>
-        );
+        )
       }
-      break;
-    case "o": // tslint:disable-line:no-switch-case-fall-through
-    case "object":
-      const oSig = csf.getObjectSignal(signalName);
+      break
+    case 'o': // tslint:disable-line:no-switch-case-fall-through
+    case 'object':
+      const oSig = csf.getObjectSignal(signalName)
       if (oSig != null) {
         subId = oSig.subscribe(
           callback as Ch5SignalUpdateCallback<object>,
           errCallback as Ch5SignalUpdateCallback<object>
-        );
+        )
       }
-      break;
+      break
     default:
       if (errCallback != null) {
-        errCallback(
-          `Signal: ${signalName}, has unsupported type: ${signalType}`
-        );
+        errCallback(`Signal: ${signalName}, has unsupported type: ${signalType}`)
       }
   }
-  return subId;
+  return subId
 }

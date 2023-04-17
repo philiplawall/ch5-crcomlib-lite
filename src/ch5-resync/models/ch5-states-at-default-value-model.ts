@@ -5,8 +5,5 @@
 // Use of this source code is subject to the terms of the Crestron Software License Agreement
 // under which you licensed this source code.
 
-export type ICh5StatesAtDefaultValueModelJoinNames = Record<string, boolean>;
-export type ICh5StatesAtDefaultValueModel = Record<
-  string,
-  ICh5StatesAtDefaultValueModelJoinNames
->;
+export type ICh5StatesAtDefaultValueModelJoinNames = Record<string, boolean>
+export type ICh5StatesAtDefaultValueModel = Record<string, ICh5StatesAtDefaultValueModelJoinNames>

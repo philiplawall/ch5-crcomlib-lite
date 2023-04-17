@@ -5,10 +5,10 @@
 // Use of this source code is subject to the terms of the Crestron Software License Agreement
 // under which you licensed this source code.
 
-import { translationFactory } from "../ch5-translation-factory";
-import { i18n } from "i18next";
-import { Ch5TranslationConfiguration } from "../ch5-translation-configuration";
-import { Ch5TranslationUtility } from "../ch5-translation-utility";
+import { translationFactory } from '../ch5-translation-factory'
+import { i18n } from 'i18next'
+import { Ch5TranslationConfiguration } from '../ch5-translation-configuration'
+import { Ch5TranslationUtility } from '../ch5-translation-utility'
 
 export function registerTranslationInterface(
   translator: i18n,
@@ -18,17 +18,17 @@ export function registerTranslationInterface(
   if (
     beginWith !== undefined &&
     endingWith !== undefined &&
-    beginWith.trim() !== "" &&
-    endingWith.trim() !== ""
+    beginWith.trim() !== '' &&
+    endingWith.trim() !== ''
   ) {
-    beginWith = beginWith.trim();
-    endingWith = endingWith.trim();
+    beginWith = beginWith.trim()
+    endingWith = endingWith.trim()
 
     Ch5TranslationConfiguration.translationTokenStartDelimiter =
-      Ch5TranslationUtility.getInstance().translatorBeginKey = beginWith;
+      Ch5TranslationUtility.getInstance().translatorBeginKey = beginWith
     Ch5TranslationConfiguration.translationTokenEndDelimiter =
-      Ch5TranslationUtility.getInstance().translatorEndKey = endingWith;
+      Ch5TranslationUtility.getInstance().translatorEndKey = endingWith
   }
 
-  translationFactory.translator = translator;
+  translationFactory.translator = translator
 }

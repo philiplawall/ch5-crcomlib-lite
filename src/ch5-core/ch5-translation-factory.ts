@@ -5,8 +5,8 @@
 // Use of this source code is subject to the terms of the Crestron Software License Agreement
 // under which you licensed this source code.
 
-import translateEngine, { i18n } from "i18next";
-import { Ch5TranslationListeners } from "./ch5-translation-listeners";
+import translateEngine, { i18n } from 'i18next'
+import { Ch5TranslationListeners } from './ch5-translation-listeners'
 
 export class Ch5TranslationFactory {
   /**
@@ -15,7 +15,7 @@ export class Ch5TranslationFactory {
    * @memberof Ch5TranslationFactory
    * @type {string}
    */
-  public receiveUpdateSub: string = "";
+  public receiveUpdateSub: string = ''
 
   /**
    * Contains the translator helper. This will be usually a i18next interface
@@ -23,7 +23,7 @@ export class Ch5TranslationFactory {
    * @memberof Ch5TranslationFactory
    * @protected
    */
-  protected _translator: i18n = {} as i18n;
+  protected _translator: i18n = {} as i18n
 
   /**
    * Getter for translator helper
@@ -31,7 +31,7 @@ export class Ch5TranslationFactory {
    * @return {ITranslator}
    */
   public get translator(): i18n {
-    return this._translator;
+    return this._translator
   }
 
   /**
@@ -41,19 +41,19 @@ export class Ch5TranslationFactory {
    */
   public set translator(translator: i18n) {
     if (Object.keys(translator).length > 0) {
-      this._translator = translator;
-      this.runListeners();
+      this._translator = translator
+      this.runListeners()
     }
 
     // console.log(this.translator);
   }
 
   private runListeners() {
-    return new Ch5TranslationListeners(this.translator);
+    return new Ch5TranslationListeners(this.translator)
   }
 }
 
-export const translationFactory = new Ch5TranslationFactory();
-translationFactory.translator = translateEngine;
+export const translationFactory = new Ch5TranslationFactory()
+translationFactory.translator = translateEngine
 
-export const languageChangedSignalName = "language_changed";
+export const languageChangedSignalName = 'language_changed'

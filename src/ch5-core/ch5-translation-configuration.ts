@@ -6,6 +6,6 @@
 // under which you licensed this source code.
 
 export class Ch5TranslationConfiguration {
-  public static translationTokenStartDelimiter: string = "-+";
-  public static translationTokenEndDelimiter: string = "+-";
+  public static translationTokenStartDelimiter: string = '-+'
+  public static translationTokenEndDelimiter: string = '+-'
 }

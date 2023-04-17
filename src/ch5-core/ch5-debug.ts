@@ -9,65 +9,57 @@ export enum LogLevelEnum {
   default = 0,
   info = 1,
   warning = 2,
-  error = 3,
+  error = 3
 }
 
 export type TCh5DebugConfig = {
-  [key: string]: boolean | string | LogLevelEnum;
-};
+  [key: string]: boolean | string | LogLevelEnum
+}
 
 export class Ch5Debug {
   /**
    * Config key used for debug messages filtering
    */
-  public static DEBUG_MESSAGE_FILTER_SOURCE_KEY: string =
-    "Logger.messagesFilter.source";
+  public static DEBUG_MESSAGE_FILTER_SOURCE_KEY: string = 'Logger.messagesFilter.source'
 
   /**
    * Config key used for debug messages filtering level
    */
-  public static DEBUG_MESSAGE_FILTER_LEVEL_KEY: string =
-    "Logger.messagesFilter.defaultLevel";
+  public static DEBUG_MESSAGE_FILTER_LEVEL_KEY: string = 'Logger.messagesFilter.defaultLevel'
 
-  public static CONSOLE_OVERRIDDEN: boolean = false;
+  public static CONSOLE_OVERRIDDEN: boolean = false
 
   protected static _defaultConfig: TCh5DebugConfig = {
-    "Ch5SignalBridge.constructor": false,
-    "Ch5SignalBridge.subscribe": false,
-    "Ch5SignalBridge.unsubscribe": false,
-    "Ch5SignalBridge.publish": false,
-    "Ch5SignalBridge.sendBooleanToNative": false,
-    "Ch5SignalBridge.sendIntegerToNative": false,
-    "Ch5SignalBridge.sendStringToNative": false,
-    "Ch5SignalBridge.sendObjectToNative": false,
+    'Ch5SignalBridge.constructor': false,
+    'Ch5SignalBridge.subscribe': false,
+    'Ch5SignalBridge.unsubscribe': false,
+    'Ch5SignalBridge.publish': false,
+    'Ch5SignalBridge.sendBooleanToNative': false,
+    'Ch5SignalBridge.sendIntegerToNative': false,
+    'Ch5SignalBridge.sendStringToNative': false,
+    'Ch5SignalBridge.sendObjectToNative': false,
     bridgeReceiveIntegerFromNative: false,
     bridgeReceiveBooleanFromNative: false,
     bridgeReceiveStringFromNative: false,
     bridgeReceiveObjectFromNative: false,
-    "bridge.rcbTimerCallback": false,
-    "bridge.clearTimersForSignal": false,
-    "bridge.rcbIntervalTimerCallback": false,
+    'bridge.rcbTimerCallback': false,
+    'bridge.clearTimersForSignal': false,
+    'bridge.rcbIntervalTimerCallback': false,
     Ch5Resync: false,
-    "Logger.messagesFilter.defaultLevel": LogLevelEnum.warning,
-  };
-
-  protected static _config: TCh5DebugConfig = Ch5Debug._defaultConfig;
-
-  public static shouldDisplay(key: string) {
-    return (
-      Ch5Debug._config.hasOwnProperty(key) && true === Ch5Debug._config[key]
-    );
+    'Logger.messagesFilter.defaultLevel': LogLevelEnum.warning
   }
 
-  public static info(
-    key: string,
-    message?: any,
-    ...optionalParams: any[]
-  ): void {
+  protected static _config: TCh5DebugConfig = Ch5Debug._defaultConfig
+
+  public static shouldDisplay(key: string) {
+    return Ch5Debug._config.hasOwnProperty(key) && true === Ch5Debug._config[key]
+  }
+
+  public static info(key: string, message?: any, ...optionalParams: any[]): void {
     if (Ch5Debug.shouldDisplay(key)) {
       // TODO add option to add optional timestamp
       // const ts: string = (new Date()).toISOString();
-      console.log(key + ":" + message, optionalParams);
+      console.log(key + ':' + message, optionalParams)
     }
   }
 
@@ -76,31 +68,28 @@ export class Ch5Debug {
    * Loads a new configuration. Overrides the existing one.
    */
   public static loadConfig(config: TCh5DebugConfig) {
-    Ch5Debug._config = config;
+    Ch5Debug._config = config
   }
 
   /**
    * Changes the value of a key from the configuration
    */
-  public static setConfigKeyValue(
-    key: string,
-    value: boolean | string | LogLevelEnum
-  ) {
-    Ch5Debug._config[key] = value;
+  public static setConfigKeyValue(key: string, value: boolean | string | LogLevelEnum) {
+    Ch5Debug._config[key] = value
   }
 
   public static getConfig() {
-    return Ch5Debug._config;
+    return Ch5Debug._config
   }
 
   public static getConfigKeyValue(key: string) {
-    return Ch5Debug._config[key];
+    return Ch5Debug._config[key]
   }
 
   public static enableAll() {
     for (const prop in Ch5Debug._config) {
       if (Ch5Debug._config.hasOwnProperty(prop)) {
-        Ch5Debug._config[prop] = true;
+        Ch5Debug._config[prop] = true
       }
     }
   }
@@ -108,7 +97,7 @@ export class Ch5Debug {
   public static disableAll() {
     for (const prop in Ch5Debug._config) {
       if (Ch5Debug._config.hasOwnProperty(prop)) {
-        Ch5Debug._config[prop] = false;
+        Ch5Debug._config[prop] = false
       }
     }
   }

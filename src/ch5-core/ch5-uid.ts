@@ -9,10 +9,10 @@
  * Allows generating an unique id among the ch5 components
  */
 export class Ch5Uid {
-  private static _id = 0;
-  private static _prefix = "cr-id-";
+  private static _id = 0
+  private static _prefix = 'cr-id-'
 
   public static getUid() {
-    return Ch5Uid._prefix + ++Ch5Uid._id;
+    return Ch5Uid._prefix + ++Ch5Uid._id
   }
 }

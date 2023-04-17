@@ -6,31 +6,31 @@
 // under which you licensed this source code.
 
 // import { TStringSet } from './core';
-import { Ch5Signal } from "./ch5-signal";
-import { TSignal, TSignalBagByType } from "./types/signal.type";
+import { Ch5Signal } from './ch5-signal'
+import { TSignal, TSignalBagByType } from './types/signal.type'
 
 export class Ch5SignalFactory {
-  private static _instance: Ch5SignalFactory | undefined;
-  private _signals: TSignalBagByType | undefined;
+  private static _instance: Ch5SignalFactory | undefined
+  private _signals: TSignalBagByType | undefined
 
   public static getInstance(): Ch5SignalFactory {
     if (Ch5SignalFactory._instance === undefined) {
-      Ch5SignalFactory._instance = new Ch5SignalFactory();
+      Ch5SignalFactory._instance = new Ch5SignalFactory()
     }
 
-    return Ch5SignalFactory._instance;
+    return Ch5SignalFactory._instance
   }
 
   public static clear() {
     if (Ch5SignalFactory._instance !== undefined) {
-      Ch5SignalFactory._instance._signals = undefined;
-      Ch5SignalFactory._instance = undefined;
+      Ch5SignalFactory._instance._signals = undefined
+      Ch5SignalFactory._instance = undefined
     }
   }
 
   private constructor() {
     // this._signals = {};
-    this._signals = { boolean: {}, number: {}, string: {}, object: {} };
+    this._signals = { boolean: {}, number: {}, string: {}, object: {} }
   }
 
   // Utility for testing purposes only
@@ -41,49 +41,37 @@ export class Ch5SignalFactory {
             boolean: {},
             number: {},
             string: {},
-            object: this._signals.object,
+            object: this._signals.object
           })
-        : (this._signals = { boolean: {}, number: {}, string: {}, object: {} });
+        : (this._signals = { boolean: {}, number: {}, string: {}, object: {} })
     }
   }
 
   public getStates(): any {
-    return this._signals;
+    return this._signals
   }
 
-  public getBooleanSignal(
-    name: string,
-    createNewIfNotFound = true
-  ): Ch5Signal<boolean> | null {
-    return this.getState<boolean>(name, false, createNewIfNotFound);
+  public getBooleanSignal(name: string, createNewIfNotFound = true): Ch5Signal<boolean> | null {
+    return this.getState<boolean>(name, false, createNewIfNotFound)
   }
 
   public getObjectAsBooleanSignal(
     name: string,
     createNewIfNotFound = true
   ): Ch5Signal<object | boolean> | null {
-    return this.getState<object | boolean>(name, false, createNewIfNotFound);
+    return this.getState<object | boolean>(name, false, createNewIfNotFound)
   }
 
-  public getNumberSignal(
-    name: string,
-    createNewIfNotFound = true
-  ): Ch5Signal<number> | null {
-    return this.getState<number>(name, 0, createNewIfNotFound);
+  public getNumberSignal(name: string, createNewIfNotFound = true): Ch5Signal<number> | null {
+    return this.getState<number>(name, 0, createNewIfNotFound)
   }
 
-  public getStringSignal(
-    name: string,
-    createNewIfNotFound = true
-  ): Ch5Signal<string> | null {
-    return this.getState<string>(name, "", createNewIfNotFound);
+  public getStringSignal(name: string, createNewIfNotFound = true): Ch5Signal<string> | null {
+    return this.getState<string>(name, '', createNewIfNotFound)
   }
 
-  public getObjectSignal(
-    name: string,
-    createNewIfNotFound = true
-  ): Ch5Signal<object> | null {
-    return this.getState<object>(name, {}, createNewIfNotFound);
+  public getObjectSignal(name: string, createNewIfNotFound = true): Ch5Signal<object> | null {
+    return this.getState<object>(name, {}, createNewIfNotFound)
   }
 
   public getState<T extends TSignal>(
@@ -92,30 +80,28 @@ export class Ch5SignalFactory {
     createNewIfNotFound = true
   ): Ch5Signal<T> | null {
     if (name === undefined || this._signals === undefined) {
-      return null;
+      return null
     }
-    const type: string = typeof typeInstance;
+    const type: string = typeof typeInstance
     if (this._signals[type] === undefined) {
-      return null;
+      return null
     }
 
     if (this._signals[type][name] === undefined) {
       if (!createNewIfNotFound) {
-        return null;
+        return null
       }
-      const newSignal = new Ch5Signal<T>(name, typeInstance);
-      this._signals[type][name] = newSignal;
+      const newSignal = new Ch5Signal<T>(name, typeInstance)
+      this._signals[type][name] = newSignal
 
-      return newSignal;
+      return newSignal
     } else {
-      const existingSignal: Ch5Signal<T> = this._signals[type][
-        name
-      ] as Ch5Signal<T>;
+      const existingSignal: Ch5Signal<T> = this._signals[type][name] as Ch5Signal<T>
       if (existingSignal.type === typeof typeInstance) {
-        return existingSignal;
+        return existingSignal
       } else {
         // not the same type !!! return null for now.
-        return null;
+        return null
       }
     }
   }

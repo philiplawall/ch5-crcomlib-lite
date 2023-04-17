@@ -5,12 +5,12 @@
 // Use of this source code is subject to the terms of the Crestron Software License Agreement
 // under which you licensed this source code.
 
-import { Ch5SignalFactory } from "../ch5-signal-factory";
+import { Ch5SignalFactory } from '../ch5-signal-factory'
 
 /**
  * Utility function that returns the number of active subscriptions of CH5 Components
  */
 export function getSubscriptionsCount() {
-  const signals = Ch5SignalFactory.getInstance().getStates();
-  return signals;
+  const signals = Ch5SignalFactory.getInstance().getStates()
+  return signals
 }

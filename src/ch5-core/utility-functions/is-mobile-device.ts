@@ -12,5 +12,5 @@
  * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Browser_detection_using_the_user_agent
  */
 export function isMobileDevice(): boolean {
-  return window.navigator.userAgent.toLowerCase().includes("mobi");
+  return window.navigator.userAgent.toLowerCase().includes('mobi')
 }

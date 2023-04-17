@@ -6,5 +6,5 @@
 // under which you licensed this source code.
 
 export interface ICh5ExcludePrefixesModel {
-  excludePrefixes: string[];
+  excludePrefixes: string[]
 }

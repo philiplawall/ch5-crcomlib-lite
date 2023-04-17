@@ -16,14 +16,14 @@
  * 'the third param: param3, the first param: p1, the second param: 2, the first param again p1'
  */
 export function textformat(template: string, ...templateParams: any[]): string {
-  let processedTemplate = template;
+  let processedTemplate = template
 
   for (let i = 0, len = templateParams.length; i < len; i++) {
     processedTemplate = processedTemplate.replace(
-      new RegExp("\\{" + (+i + 1) + "\\}", "g"),
+      new RegExp('\\{' + (+i + 1) + '\\}', 'g'),
       templateParams[i]
-    );
+    )
   }
 
-  return processedTemplate;
+  return processedTemplate
 }

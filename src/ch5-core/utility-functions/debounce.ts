@@ -6,8 +6,8 @@
 // under which you licensed this source code.
 
 export interface IDebouncerDetails {
-  start: number | undefined;
-  timeoutIdentifier: any;
+  start: number | undefined
+  timeoutIdentifier: any
 }
 
 /**
@@ -21,16 +21,16 @@ export const debounce = (
   callback: () => void,
   debounceTime: number = 0
 ) => {
-  const now: number = Date.now();
+  const now: number = Date.now()
   if (!debouncer.start) {
-    debouncer.start = now;
+    debouncer.start = now
   }
-  const debounceTimePassed: boolean = now - debouncer.start > debounceTime;
+  const debounceTimePassed: boolean = now - debouncer.start > debounceTime
   if (!debouncer.timeoutIdentifier || debounceTimePassed) {
     // set timeout only if debouncer is not init or debounceTime passed
-    clearTimeout(debouncer.timeoutIdentifier);
-    debouncer.timeoutIdentifier = setTimeout(() => callback(), debounceTime);
+    clearTimeout(debouncer.timeoutIdentifier)
+    debouncer.timeoutIdentifier = setTimeout(() => callback(), debounceTime)
     // update debouncer start in case a new callback exec is scheduled
-    debouncer.start = debounceTimePassed ? now : debouncer.start;
+    debouncer.start = debounceTimePassed ? now : debouncer.start
   }
-};
+}

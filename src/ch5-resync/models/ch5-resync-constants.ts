@@ -6,5 +6,5 @@
 // under which you licensed this source code.
 
 export class Ch5ResyncConstants {
-  public static readonly JOIN_NUMBER_SIGNAL_NAME_PREFIX = "fb";
+  public static readonly JOIN_NUMBER_SIGNAL_NAME_PREFIX = 'fb'
 }

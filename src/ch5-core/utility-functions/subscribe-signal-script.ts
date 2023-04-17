@@ -5,27 +5,27 @@
 // Use of this source code is subject to the terms of the Crestron Software License Agreement
 // under which you licensed this source code.
 
-import { subscribeState } from "./subscribe-signal";
-import { TSignalNonStandardTypeName } from "../core";
-import { getState } from "./get-signal";
-import { unsubscribeState } from "./unsubscribe-signal";
-import { Ch5Signal } from "../ch5-signal";
+import { subscribeState } from './subscribe-signal'
+import { TSignalNonStandardTypeName } from '../core'
+import { getState } from './get-signal'
+import { unsubscribeState } from './unsubscribe-signal'
+import { Ch5Signal } from '../ch5-signal'
 
 export type TSigNameTypeSub = {
-  sigName: string;
-  sigType: "b" | "n" | "s";
-  sigSub: string;
-};
+  sigName: string
+  sigType: 'b' | 'n' | 's'
+  sigSub: string
+}
 /**
  * A global hash table used to keep track of signal subscriptions used in the subscribeStateScript utility function
  */
 export const subscribeStateScriptSigSubs: {
-  [key: string]: TSigNameTypeSub[];
-} = {};
+  [key: string]: TSigNameTypeSub[]
+} = {}
 
-let subSigScriptIndex = 0;
+let subSigScriptIndex = 0
 export function generateSubSigScriptKey(): string {
-  return "ch5SubSigScript-" + ++subSigScriptIndex;
+  return 'ch5SubSigScript-' + ++subSigScriptIndex
 }
 
 /**
@@ -36,11 +36,11 @@ export function generateSubSigScriptKey(): string {
  */
 export function unsubscribeStateScript(subKey: string) {
   if (!subscribeStateScriptSigSubs.hasOwnProperty(subKey)) {
-    return;
+    return
   }
   subscribeStateScriptSigSubs[subKey].forEach((item: TSigNameTypeSub) => {
-    unsubscribeState(item.sigType, item.sigName, item.sigSub);
-  });
+    unsubscribeState(item.sigType, item.sigName, item.sigSub)
+  })
 }
 
 /**
@@ -57,75 +57,71 @@ export function subscribeStateScript(
   callback: (update: string) => {},
   defaultValue?: string
 ): string {
-  const signalTokens = new Set<string>();
+  const signalTokens = new Set<string>()
 
-  if (typeof defaultValue === "undefined" || null === defaultValue) {
-    defaultValue = "undefined";
+  if (typeof defaultValue === 'undefined' || null === defaultValue) {
+    defaultValue = 'undefined'
   }
 
   // parse and extract signal names
   signalScript.replace(
     /{{([bns]\.([A-Za-z]|[0-9])([A-Za-z0-9_.])*)}}/g,
     (substring: string, ...args: any[]): string => {
-      if (typeof args[0] === "undefined") {
-        return "";
+      if (typeof args[0] === 'undefined') {
+        return ''
       }
-      signalTokens.add(args[0]);
-      return "";
+      signalTokens.add(args[0])
+      return ''
     }
-  );
+  )
 
-  let sigName = "";
-  let sigType = "";
-  const sigTokensIterator = signalTokens.values();
-  let item: any = sigTokensIterator.next();
-  const subKeys: TSigNameTypeSub[] = [];
-  while (typeof item.value !== "undefined") {
-    sigType = item.value.split(".")[0];
-    const joinsList = item.value.split(".").slice(1);
-    sigName = joinsList.join(".");
+  let sigName = ''
+  let sigType = ''
+  const sigTokensIterator = signalTokens.values()
+  let item: any = sigTokensIterator.next()
+  const subKeys: TSigNameTypeSub[] = []
+  while (typeof item.value !== 'undefined') {
+    sigType = item.value.split('.')[0]
+    const joinsList = item.value.split('.').slice(1)
+    sigName = joinsList.join('.')
 
     // augment signal name in case of join numbers
-    sigName = Ch5Signal.getSubscriptionSignalName(sigName);
+    sigName = Ch5Signal.getSubscriptionSignalName(sigName)
 
-    let subId: string;
+    let subId: string
 
     const subCallback = () => {
       const processedTempl = _callbackForSignalScriptOnSignalUpdate(
         signalTokens,
         signalScript,
         defaultValue as string
-      );
-      if (typeof callback === "function") {
-        callback.bind(null, processedTempl)();
+      )
+      if (typeof callback === 'function') {
+        callback.bind(null, processedTempl)()
       }
-    };
-    subId = subscribeState(
-      sigType as TSignalNonStandardTypeName,
-      sigName,
-      subCallback
-    );
+    }
+    subId = subscribeState(sigType as TSignalNonStandardTypeName, sigName, subCallback)
     const sigNameTypeSub: TSigNameTypeSub = {
       sigName: sigName,
-      sigType: sigType as "b" | "n" | "s",
-      sigSub: subId,
-    };
-    subKeys.push(sigNameTypeSub);
-    item = sigTokensIterator.next();
+      sigType: sigType as 'b' | 'n' | 's',
+      sigSub: subId
+    }
+    subKeys.push(sigNameTypeSub)
+    item = sigTokensIterator.next()
   }
-  const sigSubScriptKey = generateSubSigScriptKey();
-  subscribeStateScriptSigSubs[sigSubScriptKey] = subKeys;
+  const sigSubScriptKey = generateSubSigScriptKey()
+  subscribeStateScriptSigSubs[sigSubScriptKey] = subKeys
 
   const pTpl = _callbackForSignalScriptOnSignalUpdate(
     signalTokens,
     signalScript,
     defaultValue as string
-  );
-  if (typeof callback === "function") {
-    callback.bind(null, pTpl)();
+  )
+  if (typeof callback === 'function') {
+    callback.bind(null, pTpl)()
   }
 
-  return sigSubScriptKey;
+  return sigSubScriptKey
 }
 
 function _callbackForSignalScriptOnSignalUpdate(
@@ -133,34 +129,34 @@ function _callbackForSignalScriptOnSignalUpdate(
   scriptTemplate: string,
   defaultValue: string
 ): string {
-  let processedTemplate = scriptTemplate;
+  let processedTemplate = scriptTemplate
 
-  const sigTokensIterator = signalTokens.values();
-  let item: any = sigTokensIterator.next();
-  let sigName = "";
-  let sigType = "";
-  while (typeof item.value !== "undefined") {
-    sigType = item.value.split(".")[0];
-    const joinsList = item.value.split(".").slice(1);
-    sigName = joinsList.join(".");
-    const sigVal = getState(sigType as TSignalNonStandardTypeName, sigName);
+  const sigTokensIterator = signalTokens.values()
+  let item: any = sigTokensIterator.next()
+  let sigName = ''
+  let sigType = ''
+  while (typeof item.value !== 'undefined') {
+    sigType = item.value.split('.')[0]
+    const joinsList = item.value.split('.').slice(1)
+    sigName = joinsList.join('.')
+    const sigVal = getState(sigType as TSignalNonStandardTypeName, sigName)
     if (sigVal === null) {
-      processedTemplate = defaultValue;
-      break;
+      processedTemplate = defaultValue
+      break
     } else {
       processedTemplate = processedTemplate.replace(
-        new RegExp("\\{\\{" + item.value + "\\}\\}", "g"),
+        new RegExp('\\{\\{' + item.value + '\\}\\}', 'g'),
         sigVal as string
-      );
+      )
     }
 
-    item = sigTokensIterator.next();
+    item = sigTokensIterator.next()
   }
 
   if (defaultValue !== processedTemplate) {
     // interpret the js from the scriptTemplate string
-    processedTemplate = new Function("return " + processedTemplate)();
+    processedTemplate = new Function('return ' + processedTemplate)()
   }
 
-  return processedTemplate;
+  return processedTemplate
 }
